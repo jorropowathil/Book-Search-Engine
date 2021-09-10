@@ -6,11 +6,17 @@ const resolvers = {
 Query: {
     me: async () => {
         return User
-    }
-    
+    },
+    me: async (parent, args, context) => {
+        if (context.user) {
+            return User.findOne({ _id: context.user._id })
+        }
+        throw new AuthenticationError('You need to be logged in!');
+        }
 },
 
 Mutation: {
+    // Taken from activity 27 resolvers
     addUser: async (parent, { username, email, password }) => {
         const user = await User.create({ username, email, password });
         const token = signToken(user);
@@ -30,19 +36,25 @@ Mutation: {
         return { token, user };
       },
 
-      saveBook: async (parent,args)=> {
+      saveBook: async (parent, {body}, args)=> {
           if (context.user) {
               const userBooksUpdated = await User.findOneAndUpdate(
                 { _id: context.user._id },
-                { $addToSet: { newBook: body } },
+                { $addToSet: { 
+                    newBook: body 
+                }},
                 { new: true }
               );
               return userBooksUpdated;
           }
+          throw new AuthenticationError("You need to be logged in!");
       },
-    //  removeBook: async (parent,args)=> {
+     removeBook: async (parent,args)=> {
+         const userBooksUpdated = await User.findOneAndUpdate(
 
-    //  }
+            )
+
+     }
 }
 
 
