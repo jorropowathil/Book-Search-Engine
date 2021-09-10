@@ -5,8 +5,8 @@ import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
 
 // Import Apollo Provider for GQL
-import { ApolloProvider } from "@apollo/react-hooks";
-import ApolloClient from "apollo-boost";
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink, } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 
 
 // Construct our main GraphQL API endpoint
