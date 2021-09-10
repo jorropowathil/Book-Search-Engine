@@ -29,7 +29,20 @@ Mutation: {
   
         return { token, user };
       },
-      
+
+      saveBook: async (parent,args)=> {
+          if (context.user) {
+              const userBooksUpdated = await User.findOneAndUpdate(
+                { _id: context.user._id },
+                { $addToSet: { newBook: body } },
+                { new: true }
+              );
+              return userBooksUpdated;
+          }
+      },
+    //  removeBook: async (parent,args)=> {
+
+    //  }
 }
 
 
