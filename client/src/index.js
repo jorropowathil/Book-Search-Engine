@@ -5,9 +5,7 @@ import './index.css';
 import App from './App';
 
 
-const { ApolloServer } = require('apollo-server');
-const typeDefs = require('./schema');
-const server = new ApolloServer({ typeDefs });
+
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,3 +13,4 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+

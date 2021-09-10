@@ -49,16 +49,14 @@ Mutation: {
           }
           throw new AuthenticationError("You need to be logged in!");
       },
-     removeBook: async (parent,args)=> {
+     removeBook: async (parent,{bookId}, args)=> {
          const userBooksUpdated = await User.findOneAndUpdate(
-
+             { _id: context.user._id},
+             {$pull: {newBook: {bookId: bookId}}},
+             {new: true}
             )
-
+            return userBooksUpdated;
      }
-}
-
-
-
-}
+}}
 
 module.exports = resolvers;
